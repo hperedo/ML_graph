@@ -1,49 +1,35 @@
 import React, { useEffect, useRef } from "react";
-import { useWindowSize } from "react-use";
-//import * as tfvis from "@tensorflow/tfjs-vis";
-import { render as tfvisRender, Visor } from "@tensorflow/tfjs-vis";
+import { render as tfvisRender } from "@tensorflow/tfjs-vis";
 
-const ResponsiveTensorflowVisorChart = () => {
-  const visorRef = useRef(null);
-  const windowSize = useWindowSize();
-
-  // const TensorflowVisorChart = () => {
-  //   const visorRef = useRef(null);
+const TensorflowVisorChart = () => {
+  const chartContainerRef = useRef(null);
 
   useEffect(() => {
-    const surface = visorRef.current;
+    const surface = chartContainerRef.current;
 
     const data = [
-      { index: 0, value: 100, color: "red" },
-      { index: 1, value: 200, color: "red" },
-      { index: 2, value: 150, color: "red" },
-      { index: 3, value: 250, color: "red" },
-      { index: 4, value: 550, color: "red" },
+      { index: 0, value: 100, color: "rgba(255, 0, 0, 0.5)" },
+      { index: 1, value: 200, color: "rgba(255, 0, 0, 0.5)" },
+      { index: 2, value: 150, color: "rgba(255, 0, 0, 0.5)" },
+      { index: 3, value: 250, color: "rgba(255, 0, 0, 0.5)" },
+      { index: 4, value: 550, color: "rgba(255, 0, 0, 0.5)" },
     ];
 
     const data1 = [
-      { index: 5, value: 300, color: "blue" },
-      { index: 6, value: 400, color: "blue" },
+      { index: 5, value: 300, color: "rgba(0, 0, 255, 0.5)" },
+      { index: 6, value: 400, color: "rgba(0, 0, 255, 0.5)" },
     ];
-
-    const options = {
-      width: windowSize.width * 0.8,
-      height: 400,
-      style: "bar",
-      xLabel: "Index",
-      yLabel: "Value",
-    };
 
     const newData = [...data, ...data1];
 
-    tfvis.render.barchart(surface, newData, options);
-  }, [windowSize]);
+    tfvisRender.barchart(surface, newData, { colorBy: "color" });
+  }, []);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <Visor ref={visorRef} />
+      <div ref={chartContainerRef}></div>
     </div>
   );
 };
 
-export default ResponsiveTensorflowVisorChart;
+export default TensorflowVisorChart;
